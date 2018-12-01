@@ -1,0 +1,1 @@
+{"type":"Sprite","props":{"y":0,"x":0,"width":50,"texture":"images/body1.png","presetID":1,"name":"sankeBody","isPresetRoot":true,"height":50},"compId":26,"child":[{"type":"Script","props":{"presetID":2,"runtime":"script/SnakeBodyScript.ts"},"compId":27}],"loadList":["images/body1.png"],"loadList3D":[],"components":[]}

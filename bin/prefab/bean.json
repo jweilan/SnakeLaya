@@ -1,0 +1,1 @@
+{"type":"Sprite","props":{"y":0,"x":0,"width":5,"texture":"images/bean1.png","presetID":1,"name":"bean","isPresetRoot":true,"height":5},"compId":14,"child":[{"type":"Script","props":{"y":0,"x":0,"presetID":2,"runtime":"script/BeanScript.ts"},"compId":15}],"loadList":["images/bean1.png"],"loadList3D":[],"components":[]}

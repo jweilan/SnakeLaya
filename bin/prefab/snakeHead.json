@@ -1,0 +1,1 @@
+{"type":"Sprite","props":{"y":0,"x":0,"width":50,"texture":"images/head1.png","presetID":1,"pivotX":0,"name":"snakeHead","isPresetRoot":true,"height":50},"compId":25,"child":[{"type":"Script","props":{"presetID":2,"runtime":"script/SnakeHeadScript.ts"},"compId":26}],"loadList":["images/head1.png"],"loadList3D":[],"components":[]}
