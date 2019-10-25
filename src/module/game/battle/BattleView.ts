@@ -1,25 +1,20 @@
-import { ui } from "../ui/layaMaxUI";
-import Rocker from "./Rocker";
-import Camera2D from "./Camera2D";
-import ToolCMD from "../config/ToolCMD";
-import Snake from "./Snake";
-import GameConfig from "../GameConfig";
-import GameData from "./GameData";
+import { ui } from "../../../ui/layaMaxUI";
+import Camera2D from "../../utils/Camera2D";
+import Snake from "../snake/Snake";
+import GameConfig from "../../../GameConfig";
+import Rocker from "../../utils/Rocker";
+import ToolCMD from "../../../config/ToolCMD";
+import GameData from "../../data/GameData";
+import worldMaps from "../../utils/worldMaps";
 
-/**
- * 游戏UI
- */
-export default class GameUI extends ui.gameMainUI{
+export default class BattleView extends ui.gameMainUI{
 
-    //食物预制件
-    /** @prop {name:Brid,tips:"小鸟",type:Prefab} */
-    Bean:Laya.Prefab;
-    static instance:GameUI;
+    static instance:BattleView;
     
     snakeSelf:Snake; //蛇
     constructor(){
         super();
-        GameUI.instance=this;
+        BattleView.instance=this;
         this.init();
         this._addEvent();
     }
@@ -29,12 +24,21 @@ export default class GameUI extends ui.gameMainUI{
         this.snakeSelf=new Snake(GameConfig.width/2,GameConfig.height/2,"player");
         this.gameBox.addChild(this.snakeSelf);
         this.scoreText.changeText(this.snakeSelf.snakeEatBeanNum+"");
+        this.map.graphics.drawRect(0,0,3000,1500,"#FFF");
 
         Camera2D.instance.start(this.worldMap); 
         Camera2D.instance.focus(this.snakeSelf);
 
         Laya.stage.on(ToolCMD.ROCKER_MOVE,this,this._getRockerAngle);
+
+
+        var htmlCanvas:Laya.HTMLCanvas=this.drawToCanvas(750,1334,0,0);
+        htmlCanvas.toBase64("image/png",0.9,function(data){
+            console.log(data);
+        })
+
     }
+
     private _addEvent():void{
         //加速
         this.speedBtn.on(Laya.Event.MOUSE_DOWN,this,this._onSpeedBtn);
@@ -51,7 +55,7 @@ export default class GameUI extends ui.gameMainUI{
         this.snakeSelf=new Snake(GameConfig.width/2,GameConfig.height/2,"player");
         this.gameBox.addChild(this.snakeSelf);
         Camera2D.instance.focus(this.snakeSelf);
-        GameData.allSnakeList.push(GameUI.instance.snakeSelf);
+        GameData.allSnakeList.push(BattleView.instance.snakeSelf);
         this.scoreText.changeText(this.snakeSelf.snakeEatBeanNum+"");
         this.showUI(UIName.GAME);
     }

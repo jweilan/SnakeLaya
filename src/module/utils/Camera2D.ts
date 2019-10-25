@@ -1,4 +1,5 @@
-import GameConfig from "../GameConfig";
+import GameConfig from "../../GameConfig";
+
 
 /*
  * @Description: 2d相机跟随
@@ -14,7 +15,6 @@ export default class Camera2D{
         this._instance = this._instance || new Camera2D;
         return this._instance
     }
-
     // 视窗
     private _cameraView:Laya.Rectangle;
     public get cameraView():Laya.Rectangle{
@@ -26,7 +26,6 @@ export default class Camera2D{
     private _mapH=1500;
 
     constructor(){
-       
     }
     start(scene:Laya.Sprite):void{
        this._scene=scene;

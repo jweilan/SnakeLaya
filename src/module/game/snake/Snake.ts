@@ -1,8 +1,7 @@
-import GameUI, { UIName } from "./GameUI";
-import GameConfig from "../GameConfig";
-import GameData from "./GameData";
-import ToolUtils from "../config/ToolUtils";
 
+import ToolUtils from "../../../config/ToolUtils";
+import BattleView from "../battle/BattleView";
+import GameData from "../../data/GameData";
 /**
  * 蛇类
  */
@@ -11,6 +10,7 @@ export default class Snake extends Laya.Sprite{
     AI:boolean=false; //是否为ai;
 
     bodyList:Array<Laya.Sprite>=[];//蛇身数组
+    bodyListPos:Array<Laya.Point>=[];//蛇身每一节改成一个点。。
     snakeEatBeanNum:number=20;//蛇身长度
     oneBodyBeanNum:number=5;//吃几颗豆增加一节身体
     snakeColNum:number;//蛇颜色。。
@@ -51,8 +51,9 @@ export default class Snake extends Laya.Sprite{
         this.loadImage("images/head"+this.snakeColNum+".png");
         //初始化蛇身
         for(var i=0;i<Math.floor(this.snakeEatBeanNum/this.oneBodyBeanNum);i++){
-            this._addBody(this.x,this.y);
+            this._addBody(this.x-i*20,this.y);
         }
+        this._InvincibleEachAni();
     }
     /**
      * 添加一节身体
@@ -65,7 +66,7 @@ export default class Snake extends Laya.Sprite{
             sp.pivot(20,20);
             sp.pos(x,y);
         this.bodyList.unshift(sp);
-        GameUI.instance.gameBox.addChild(sp);
+        BattleView.instance.gameBox.addChild(sp);
     }
     //蛇身移动
     private _bodyMove():void{
@@ -79,6 +80,22 @@ export default class Snake extends Laya.Sprite{
         this.pathList.splice(this.bodyList.length*20);
         this._checkSnakeBody();
     }
+    private _bodyMove1():void{
+        this.bodyList[0].x=this.x;
+        this.bodyList[0].y=this.y;
+       for(var i=this.bodyList.length-1;i>0;i--){
+           this.bodyList[i].x=this.bodyList[i-1].x;
+           this.bodyList[i].y=this.bodyList[i-1].y;
+       }
+        this._checkSnakeBody1();
+    }
+    private _checkSnakeBody1():void{
+        var len=Math.floor(this.snakeEatBeanNum/this.oneBodyBeanNum)-this.bodyList.length;
+        if(len){
+            var obj=this.bodyList.slice(-1);
+            this._addBody(obj["x"],obj["y"]);
+        }
+    }
     //检查蛇身
     private _checkSnakeBody():void{
         var len=Math.floor(this.snakeEatBeanNum/this.oneBodyBeanNum)-this.bodyList.length;
@@ -91,16 +108,34 @@ export default class Snake extends Laya.Sprite{
     private _checkEatProp():void{
         for(let i=0;i<GameData.beanList.length;i++){
             if((ToolUtils.getDistance(this.x,this.y,GameData.beanList[i].x,GameData.beanList[i].y)-GameData.beanList[i].width/2)<30){
-                var bean=GameData.beanList.splice(i,1)
+                var bean=GameData.beanList.splice(i,1);
+                this.snakeEatBeanNum+=bean[0].score;
                 Laya.Tween.to(bean[0],{
                     x:this.x,
                     y:this.y
                 },30,null,Laya.Handler.create(null,function(obj){
-                    obj.removeSelf();
+                    obj.destroy();
                 },bean));
-                this.snakeEatBeanNum++;
             }
         }
+    }
+    // 遍历无敌动画
+    private _InvincibleEachAni():void{
+        this._loopSpAni(this);
+        for(var i=1;i<this.bodyList.length;i++){
+            this._loopSpAni(this.bodyList[i]);
+        }
+    }
+    /**无敌的动画循环 */
+    private _loopSpAni(sp):void{
+        var alpha=Math.abs(sp.alpha-1);
+        if(!this.InvincibleSecond){//结束的条件
+            sp.alpha=1;
+            return;
+        }
+        Laya.Tween.to(sp,{
+            alpha:alpha,
+        },100,null,Laya.Handler.create(this,this._loopSpAni,[sp]));
     }
     //改变方向
     upMove(angle):void{
@@ -134,7 +169,7 @@ export default class Snake extends Laya.Sprite{
                 y=(this.y-old.y)*i/speed+old.y;
             this.pathList.unshift({x:x,y:y})
         }
-        this._bodyMove();
+        this._bodyMove1();
         this._checkEatProp();
     }
 }

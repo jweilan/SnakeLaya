@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":2,
-    "selecteID":22,
+    "selectedBox":3,
+    "selecteID":42,
     "searchKey":"Scene",
-    "props":{"width":1136,"sceneColor":"#b08c8c","runtime":"script/GameUI.ts","height":640},
+    "props":{"width":1136,"sceneColor":"#b08c8c","runtime":"module/game/battle/BattleView.ts","height":640},
     "nodeParent":-1,
-    "maxID":41,
+    "maxID":43,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -18,19 +18,35 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,worldMap",
-            "props":{"y":0,"x":0,"width":3000,"var":"worldMap","texture":"map/tile_map.png","height":1500},
+            "props":{"y":0,"x":0,"width":3000,"var":"worldMap","height":1500},
             "nodeParent":2,
             "label":"worldMap",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":3,
             "child":[
                 {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite,map",
+                    "props":{"y":0,"x":0,"width":3000,"var":"map","height":1500},
+                    "nodeParent":3,
+                    "label":"map",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":42,
+                    "child":[
+                        ],
+                    "$HIDDEN":true
+                },
+                {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,gameBox",
-                    "props":{"y":0,"x":0,"var":"gameBox"},
+                    "props":{"zOrder":1,"y":0,"x":0,"var":"gameBox"},
                     "nodeParent":3,
                     "label":"gameBox",
                     "isOpen":true,
@@ -50,14 +66,13 @@
             "props":{"y":0,"x":0,"width":300,"texture":"images/s1-option-background.png","name":"scoreRealBox","height":200},
             "nodeParent":2,
             "label":"scoreRealBox",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":22,
             "child":[
                 {
-                    "x":30,
                     "type":"Text",
                     "searchKey":"Text",
                     "props":{"y":23,"x":70,"width":61,"text":"长度：","height":31,"fontSize":25},
@@ -72,7 +87,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,scoreText",
                     "props":{"y":24,"x":135,"width":97,"var":"scoreText","text":"0","height":30,"fontSize":25},
@@ -86,7 +100,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Text",
                     "searchKey":"Text",
                     "props":{"y":61,"x":19,"width":116,"text":"当前蛇数：","height":39,"fontSize":25},
@@ -101,7 +114,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,snakeNumText",
                     "props":{"y":61,"x":135,"width":116,"var":"snakeNumText","text":"0","height":27,"fontSize":25},
@@ -116,7 +128,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Text",
                     "searchKey":"Text",
                     "props":{"y":100,"x":68,"width":63,"text":"道具：","height":39,"fontSize":25},
@@ -131,7 +142,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,beanNumText",
                     "props":{"y":100,"x":135,"width":116,"var":"beanNumText","text":"0","height":27,"fontSize":25},
@@ -320,16 +330,16 @@
             "x":15,
             "type":"Script",
             "switchAble":true,
-            "source":"src/script/GameConstroll.ts",
-            "searchKey":"Script,GameConstroll",
+            "source":"src/module/game/battle/constrols/BattleConstroll.ts",
+            "searchKey":"Script,BattleConstroll",
             "removeAble":true,
-            "props":{"bean":"@Prefab:prefab/bean.prefab","Bean":"@Prefab:prefab/bean.prefab"},
+            "props":{},
             "nodeParent":2,
-            "label":"GameConstroll",
+            "label":"BattleConstroll",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":16,
+            "compId":41,
             "child":[
                 ]
         }],

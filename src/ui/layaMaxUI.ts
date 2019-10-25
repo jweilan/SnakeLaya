@@ -5,6 +5,7 @@ import Scene=Laya.Scene;
 export module ui {
     export class gameMainUI extends Scene {
 		public worldMap:Laya.Sprite;
+		public map:Laya.Sprite;
 		public gameBox:Laya.Sprite;
 		public scoreText:laya.display.Text;
 		public snakeNumText:laya.display.Text;

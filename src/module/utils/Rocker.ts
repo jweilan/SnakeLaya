@@ -1,4 +1,4 @@
-import ToolCMD from "../config/ToolCMD";
+import ToolCMD from "../../config/ToolCMD";
 
 /*
  * @Description: 操作杆
